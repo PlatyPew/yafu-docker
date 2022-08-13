@@ -12,7 +12,8 @@ USER builder
 WORKDIR /home/builder
 
 RUN MAKEFLAGS="-j$(nproc)" yay -S --noconfirm yafu-git && \
-    tar -czvf yafu.tgz /etc/yafu /usr/bin/yafu
+    tar -czvf yafu.tgz /etc/yafu /usr/bin/yafu \
+        /lib64/libecm.so* /lib64/libgmp.so* /lib64/libgomp.so*  /lib64/libgcc_s.so*
 
 FROM scratch
 COPY --from=build /home/builder/yafu.tgz .
